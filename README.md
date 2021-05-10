@@ -44,18 +44,18 @@ Toisen mallin tarkkuutta kokeiltiin ensin parantaa muuttamalla learning rate-par
 
 Verkon ylioppimista lähdettiin korjaamaan yksinkertaistamalla verkkoa ja lisäämällä Dropout-kerros dense-kerrosten väliin, jolla deaktivoitiin 20% verkon neuroneista. Tällä onnistuttiin kuitenkin vain huonontamaan tarkkuutta, joten seuraavaksi kokeiltiin L2 regularisaatiota kerneliin, biasiin ja aktivaatiofunktioon. L2 regularisaation vaikutusta seuratiin piirtämällä opetus- ja testidatan tarkkuuksista kuvaajat, joita on esitetty kuvissa 5 ja 6. L2 regularisaation lisäämisellä kerneliin ei havaittu olevan vaikutusta. Biasiin lisättynä opetus- ja testidatan tarkkuuksia saatiin lähemmäs toisiaan, mutta tämä johtui huonommasta tarkkuudesta opetusdatassa. Aktivaatiofunktioon lisättynä tarkkuus parani testidatassa muutamalla prosentilla. Uteliaisuudesta kokeiltiin lisätä vielä toinen L2 regularisaatio toisen dense-kerroksen aktivaatiofunktioon, minkä todettiin parantaneen tarkkuutta edelleen. Lisättynä kolmanteen dense-kerrokseen tarkkuus lähti jälleen huonontumaan, ja lopullisesta mallista tiputettiin yksi dense-kerros pois.
 
-![L2 regularisaatio kerneliin kuvaaja](./muut_kuvat/l2_regularisaatio_kernel_kuvaaja.PNG)*Kuva 5. L2 regularisaatio kerneliin.*
+![L2 regularisaatio kerneliin kuvaaja](./img/l2_regularisaatio_kernel_kuvaaja.PNG)*Kuva 5. L2 regularisaatio kerneliin.*
 
-![L2 regularisaatio aktivaatiofunktioon kuvaaja](./muut_kuvat/l2_regularisaatio_activity_1_kuvaaja.PNG)*Kuva 6. L2 regularisaatio aktivaatiofunktioon.*
+![L2 regularisaatio aktivaatiofunktioon kuvaaja](./img/l2_regularisaatio_activity_1_kuvaaja.PNG)*Kuva 6. L2 regularisaatio aktivaatiofunktioon.*
 
-![Neuroverkon lopullunen rakenne](./muut_kuvat/l2_regularisaatio_9906.PNG)*Kuva 7. Neuroverkon lopullinen rakenne*
+![Neuroverkon lopullunen rakenne](./img/l2_regularisaatio_9906.PNG)*Kuva 7. Neuroverkon lopullinen rakenne*
 
 
 ## Ennustuksien vertailutestidataan
 
 Neuroverkon koulutuksen aikana mallin hyvyyttä seurattiin tulostamalla tarkkuus testidatassa jokaisen epookin jälkeen (verbose). Kun koulutuksessa oli päästy tyydyttävään tarkkuuteen, arvioitiin mallia myös muilla mittareilla, sillä erityisesti epätasaisesti jakautuneessa datassa tarkkuus ei välttämättä kerro koko totuutta mallin hyvyydestä. Ensimmäisenä testidatan ennustettavista arvoista ja mallin antamista ennusteista tehtiin sekaannusmatriisi, josta näkyy kuinka hyvin malli on osannut ennustaa tietyn luokan arvoja. Kuvassa 8 on sekaannusmatriisi testidatan arvoista, riveillä esitetään luokat ja sarakkeissa mallin ennuste. Matriisin ensimmäinen rivi ovat järjestyksessä lievimmästä diagnoosista vaikeimpaan siten, että luokka "ei-dementoitunut" on ensimmäinen ja viimeinen "keskivaikeasti dementoitunut".
 
-![Sekaannusmatriisi testidatan arvoista](./muut_kuvat/confusion_matrix.PNG)*Kuva 8. Sekaannusmatriisi testidatan tuloksista*
+![Sekaannusmatriisi testidatan arvoista](./img/confusion_matrix.PNG)*Kuva 8. Sekaannusmatriisi testidatan tuloksista*
 
 Sekaannusmatriisista huomaa, että malli osaa suhteellisen hyvin ennustaa MRI-kuvista dementian oikean luokittelun, mutta yksittäisten kuvien kohdalla ennuste on mennyt pieleen. Toisessa luokassa "hyvin lievästi dementoitunut" arvoja on virheellisesti luokiteltu enemmän ei-dementoituneisiin, kuin muiden luokkien kohdalla. Yksi mahdollinen selitys tälle on se, että hyvin lievä dementia ei välttämättä vielä näy aivoissa ja siten malli on luokitellut MRI-kuvan ei-dementoituneisiin. Dementian diagnosointiin on voitu käyttää myös muita arviointikriteerejä, eikä luokittelua ole alun perin tehtykään MRI-kuvan perusteella. Vastaavasti sekaannusmatriisin ensimmäisellä rivillä näkyy ei-dementoituneita luokitellun lievästi dementoituneisiin, missä voi olla taustalla esimerkiksi jonkin muun sairauden tai vamman tuottama vaurio aivoihin. 
 
@@ -80,10 +80,6 @@ Edellä esitetyistä arvoista on suotavampaa seurata luokkien recall-arvoja, kui
 ## Yhteenveto
 
 Projektin data etsittiin Kagglesta suodattaen tarjolla olevia datasettejä ensin kuvien määrän, sekä muiden käyttäjien tekemien käytettävyysarvioiden ja luokituksen perusteella. Lopulliseen aiheen valintaan vaikuttivat myös oma kiinnostus ja Alzheimer-datasetin haastavuus: MRI-kuvien perusteella Alzheimerin taudin toteaminen on asiaan perehtymättömälle ihmisellekin vaikeaa, joten kuinka mahtaa onnistua luokitteluun tehdyllä mallilla? Neuroverkon koulutuksessa päästiin odotettua parempaan lopputulokseen, jota olisi mahdollisesti voinut vielä korjata taudin aikaisen diagnosoinnin kannalta suotuisempaan suuntaa. Lisäksi työtä olisi voinut jatkaa tutkimalla mallin tehokkuutta tai keinoja sen hienosäätämiseksi. Yksi mahdollinen keino olisi ollut tarkastella mallin parametreja ja yrittää optimoida näitä paremman ja tarkemman mallin aikaan saamiseksi.Edellä mainitun ohella olisi ollut mielenkiintoista testata mallin toimivuutta mahdollisesti muista lähteistä löytyneisiin MRI-kuviin.
-
-## Videoseminaari
-
-Video on jaettu Streamiin Janne Alatalolle. https://web.microsoftstream.com/video/bc9d51ed-760d-438c-8d6f-81769e08dd82
 
 ## Lähteet
 
