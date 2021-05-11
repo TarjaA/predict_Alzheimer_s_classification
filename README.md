@@ -9,7 +9,7 @@ Alzheimerin tauti on hermoratoja ja aivosoluja vaurioittava parantumaton sairaus
 Aivojen MRI-kuvissa Alzheimerista johtuvat muutokset voi havaita aivokammioiden suurentumisena, sekä aivokuoren ja hippokampuksena kutistumisena. Aivomassan väheneminen johtaa siten myös suurempiin väleihin poimujen välillä. (What causes dementia? N.d.). Datasetin keskivaikeasti dementoituneen MRI-kuvissa edellä mainitut muutokset voi huomata suurempina mustina alueina terveisiin aivoihin verrattuna (Kuvat 1 ja 2). Vaikka alla olevissa kuvissa ei ole tiedetty otetun kuvan tasoa ja kuvat eivät siten ole täysin vertailukelpoiset, voi maallikkokin nähdä eron terveiden ja dementoituneiden välillä mm. suurempina poimujen väleinä.
 |||
 |:---:|:---:|
-|![MRI-kuva ei-dementoituneen aivoista](./Alzheimer_s_Dataset/train/NonDemented/nonDem400.jpg)|![MRI-kuva keskivaikeasti dementoituneen aivoista](./Alzheimer_s_Dataset/train/ModerateDemented/moderateDem35.jpg)|
+|![MRI-kuva ei-dementoituneen aivoista](./img/nonDem400.jpg)|![MRI-kuva keskivaikeasti dementoituneen aivoista](./img/moderateDem35.jpg)|
 *Kuva 1. Ei-dementoituneen aivot MRI-kuvassa.* |*Kuva 2. Keskivaikeasti dementoituneen aivot MRI-kuvassa.* 
 
 ## Datasetin valinta ja kuvaus
@@ -22,9 +22,9 @@ Datasetti on ollut valmiiksi jaettu opetus- ja testidataan, joka datamäärien j
 
 Kuvien lataaminen tehtiin hakemalla ensin manuaalisesti datasetistä tehty zip-paketti ja purkamalla paketti paikallisesti projektikansioon. Datan lataamiseen ei katsottu tarvittavan omaa scriptiä, sillä kuvien lataus tehtiin vain kerran. Lisäksi datasetin kuvia haluttiin yleisesti silmäillä ennen datasetin käyttämistä. Kuvien silmäilyssä huomattiin, että osassa MRI-kuvista kontrasti oli selvästi heikompi kuin muissa. Huonomman kontrastin kuvia katsottiin kuitenkin olevan tasaisesti jokaisessa luokassa ja koska koulutettua mallia käytettäisiin myös huonolaatuisten kuvien luokittelun ennustamiseen, tulisi opetus- ja testidatassa myös olla huonompilaatuisia kuvia (Dodge, S. & Karam, L. 2016). Tyhjiä kuvia ei niitä silmäilemällä havaittu.
 
-![Matala kontrasti](./Alzheimer_s_Dataset/test/VeryMildDemented/26%20(46).jpg)*Kuva 3. Matala kontrasti*
+![Matala kontrasti](./img/26%20(46).jpg)*Kuva 3. Matala kontrasti*
 
-![Korkea kontrasti](./Alzheimer_s_Dataset/test/VeryMildDemented/26%20(51).jpg)*Kuva 4. Korkea kontrasti*
+![Korkea kontrasti](./img/26%20(51).jpg)*Kuva 4. Korkea kontrasti*
 
 Kuvien lataamiseen Jupyter Notebookissa käytettiin OpenCV-kirjastoa ja scriptiä, jolla valmiiksi opetus- ja testidataan jaettu aineisto lisättiin omaan taulukkoon ennustettavan muuttujan kanssa. Ennustettava muuttuja lisättiin numeerisena arvona datasetin kansiojaottelun mukaan: keskivaikeasti dementoitunut 3, lievästi dementoitunut 2, hyvin lievästi dementoituneita 1 ja ei-dementoitunut 0. Luodusta taulukosta tehtiin myöhemmin dataframe, josta jako opetus- ja testidataan voitiin tehdä uudelleen. 
 
@@ -73,7 +73,7 @@ Sekaannusmatriisin tuloksia voi kuitenkin pitää yleisesti hyvinä, sillä mall
     - precision: 441/441=1=100%
     - F1: (2x0,9844x1)/(0,9844+1)=0,9921...=99,21%
 
-![](./muut_kuvat/classification_report.png)*Taulukko 1. Tunnuslukujen kooste*
+![](./img/classification_report.png)*Taulukko 1. Tunnuslukujen kooste*
 
 Edellä esitetyistä arvoista on suotavampaa seurata luokkien recall-arvoja, kuin ennustuksen tarkkuutta. Kuten aikaisemmin mainittiin, potilaan kannalta on parempi, että useampi ohjataan tutkimuksiin kuin jätetään tutkimatta. Aineiston luokista Keskivaikeasti dementoituneissa ennusteen tarkkuus jää toivottua pienemmäksi, mutta onnistumisprosenttiin vaikuttanee vahvasti datan vähyys. Pienellä testidatalla jo yksikin väärin ennustettu kuva laskee merkittävästi ennusteen prosentuaalista tarkkuutta, kuten tässä on käynytkin. Taulukossa 1 esitetyistä arvoissa macro avg -arvo on painottamaton keskiarvo, joka huomioi kustakin luokasta erikseen lasketun F1-arvon. Painotettu keskiarvo puolestaan on painotettu keskiarvo kunkin luokan F1-arvoista. (Mohajon J. 2020.) Epätasapainoisen datan tapauksessa kannattanee enemmän huomioida painotettua keskiarvoa kuin macro-arvoa. 
 
